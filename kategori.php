@@ -4,10 +4,22 @@ require_once __DIR__ . '/koneksi.php';
 $kategori_result = $koneksi->query("SELECT id_kategori, nama_kategori FROM kategori ORDER BY nama_kategori");
 $kategori_list = [];
 
-if ($kategori_result) {
-    while ($row = $kategori_result->fetch_assoc()) {
-        $kategori_list[] = $row;
-    }
+if (!$kategori_result) {
+    http_response_code(500);
+    exit('Gagal memuat kategori: ' . htmlspecialchars($koneksi->error, ENT_QUOTES, 'UTF-8'));
+}
+
+while ($row = $kategori_result->fetch_assoc()) {
+    $kategori_list[] = $row;
+}
+
+if (empty($kategori_list)) {
+    $kategori_list = [
+        ['nama_kategori' => 'Jaket'],
+        ['nama_kategori' => 'Kaos'],
+        ['nama_kategori' => 'Tas'],
+        ['nama_kategori' => 'Topi']
+    ];
 }
 ?>
 
@@ -41,23 +53,30 @@ if ($kategori_result) {
     </div>
 </header>
 
-<main class="section">
-    <h2>KATEGORI</h2>
-    <p>Pilih kategori untuk melihat merchandise yang tersedia.</p>
+<main class="section category-page">
+    <section class="category-intro">
+        <div>
+            <p class="category-eyebrow">CAMPUS STORE</p>
+            <h1>Jelajahi Kategori</h1>
+            <p>Temukan merchandise kampus yang cocok untuk menemani aktivitasmu.</p>
+        </div>
+        <a class="category-all-link" href="produk.php">Lihat semua produk <span aria-hidden="true">&rarr;</span></a>
+    </section>
 
-    <div class="category-list">
-        <?php if (!empty($kategori_list)): ?>
-            <?php foreach ($kategori_list as $kategori): ?>
-                <a href="produk.php?kategori=<?php echo urlencode($kategori['nama_kategori']); ?>">
-                    <?php echo htmlspecialchars($kategori['nama_kategori'], ENT_QUOTES, 'UTF-8'); ?>
-                </a>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <a href="produk.php?kategori=Jaket">Jaket</a>
-            <a href="produk.php?kategori=Kaos">Kaos</a>
-            <a href="produk.php?kategori=Tas">Tas</a>
-            <a href="produk.php?kategori=Topi">Topi</a>
-        <?php endif; ?>
+    <div class="category-summary">
+        <h2>Semua Kategori</h2>
+        <p><?php echo count($kategori_list); ?> pilihan untuk dijelajahi</p>
+    </div>
+
+    <div class="category-grid">
+        <?php foreach ($kategori_list as $index => $kategori): ?>
+            <?php $nama_kategori = $kategori['nama_kategori']; ?>
+            <a class="category-card" href="produk.php?kategori=<?php echo urlencode($nama_kategori); ?>">
+                <span class="category-card-number"><?php echo str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT); ?></span>
+                <h3><?php echo htmlspecialchars($nama_kategori, ENT_QUOTES, 'UTF-8'); ?></h3>
+                <span class="category-card-link">Lihat koleksi <span aria-hidden="true">&rarr;</span></span>
+            </a>
+        <?php endforeach; ?>
     </div>
 </main>
 
