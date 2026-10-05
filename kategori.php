@@ -28,6 +28,13 @@ $ikon_kategori = [
     'tas' => 'bag',
     'topi' => 'cap'
 ];
+
+$deskripsi_kategori = [
+    'jaket' => 'Hangat dan berkarakter',
+    'kaos' => 'Nyaman untuk setiap hari',
+    'tas' => 'Teman untuk aktivitas kampus',
+    'topi' => 'Aksesori khas kampus'
+];
 ?>
 
 <!DOCTYPE html>
@@ -62,40 +69,35 @@ $ikon_kategori = [
 
 <main class="section category-page">
     <section class="category-intro">
-        <div>
-            <p class="category-eyebrow">KOLEKSI RESMI KAMPUS</p>
-            <h1>Temukan gaya<br>kampusmu.</h1>
-            <p class="category-description">Dari pakaian hingga aksesori, pilih koleksi favoritmu dan tunjukkan kebanggaanmu.</p>
-            <a class="category-intro-button" href="produk.php">Belanja sekarang <span aria-hidden="true">&rarr;</span></a>
+        <div class="category-intro-title">
+            <p class="category-eyebrow">CAMPUS STORE <span>/</span> KOLEKSI</p>
+            <h1>Merchandise untuk<br><em>cerita kampusmu.</em></h1>
         </div>
-        <div class="category-intro-art" aria-hidden="true">
-            <span class="category-art-orbit"></span>
-            <svg viewBox="0 0 240 240" role="presentation">
-                <path d="M82 38 105 27h30l23 11 35 27-20 30-18-12v111H80V83L62 95 42 65l40-27Z" fill="currentColor"/>
-                <path d="m105 27 15 21 15-21M120 48v33m-40 0 15 8m65-8-15 8" fill="none" stroke="#f3f6fa" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
-                <path d="M103 111h34v28h-34z" fill="#f3f6fa" opacity=".95"/>
-                <path d="M109 119h22m-22 7h22m-22 7h14" stroke="#222" stroke-linecap="round" stroke-width="2"/>
-            </svg>
-            <span class="category-art-caption">CAMPUS<br>COLLECTION</span>
+        <div class="category-intro-note">
+            <p>Pilihan merchandise resmi untuk menemani keseharian dan merayakan kebanggaanmu sebagai bagian dari kampus.</p>
+            <a href="produk.php">Lihat semua produk <span aria-hidden="true">&rarr;</span></a>
         </div>
     </section>
 
     <div class="category-summary">
-        <h2>Semua Kategori</h2>
-        <p><?php echo count($kategori_list); ?> koleksi untuk dijelajahi</p>
+        <h2>Pilih kategori</h2>
+        <p><span><?php echo str_pad((string) count($kategori_list), 2, '0', STR_PAD_LEFT); ?></span> koleksi</p>
     </div>
 
     <div class="category-grid">
         <?php foreach ($kategori_list as $index => $kategori): ?>
             <?php $nama_kategori = $kategori['nama_kategori']; ?>
+            <?php $jenis_ikon = $ikon_kategori[strtolower(trim($nama_kategori))] ?? 'other'; ?>
+            <?php $deskripsi = $deskripsi_kategori[strtolower(trim($nama_kategori))] ?? 'Pilihan merchandise resmi kampus'; ?>
             <a class="category-card" href="produk.php?kategori=<?php echo urlencode($nama_kategori); ?>">
-                <span class="category-card-art" aria-hidden="true">
-                    <span class="category-card-number"><?php echo str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT); ?></span>
-                    <svg class="category-icon category-icon-<?php echo htmlspecialchars($ikon_kategori[strtolower(trim($nama_kategori))] ?? 'other', ENT_QUOTES, 'UTF-8'); ?>" viewBox="0 0 100 100" focusable="false">
-                        <?php
-                        $jenis_ikon = $ikon_kategori[strtolower(trim($nama_kategori))] ?? 'other';
-                        if ($jenis_ikon === 'jacket'):
-                        ?>
+                <span class="category-card-index"><?php echo str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT); ?></span>
+                <span class="category-card-copy">
+                    <span class="category-card-title"><?php echo htmlspecialchars($nama_kategori, ENT_QUOTES, 'UTF-8'); ?></span>
+                    <span class="category-card-description"><?php echo htmlspecialchars($deskripsi, ENT_QUOTES, 'UTF-8'); ?></span>
+                </span>
+                <span class="category-card-symbol" aria-hidden="true">
+                    <svg class="category-icon category-icon-<?php echo htmlspecialchars($jenis_ikon, ENT_QUOTES, 'UTF-8'); ?>" viewBox="0 0 100 100" focusable="false">
+                        <?php if ($jenis_ikon === 'jacket'): ?>
                             <path d="m35 18 15-7 15 7 20 15-11 18-10-7v43H36V44l-10 7-11-18 20-15Z"/>
                             <path d="m42 13 8 12 8-12M50 25v34m-14-15 8 5m20-5-8 5"/>
                         <?php elseif ($jenis_ikon === 'shirt'): ?>
@@ -113,13 +115,8 @@ $ikon_kategori = [
                             <path d="M50 12 60 38l28 2-21 18 7 28-24-15-24 15 7-28-21-18 28-2 10-26Z"/>
                         <?php endif; ?>
                     </svg>
-                    <span class="category-card-art-mark">CS</span>
                 </span>
-                <span class="category-card-content">
-                    <span class="category-card-label">Koleksi kampus</span>
-                    <span class="category-card-title"><?php echo htmlspecialchars($nama_kategori, ENT_QUOTES, 'UTF-8'); ?></span>
-                    <span class="category-card-link">Jelajahi koleksi <span aria-hidden="true">&rarr;</span></span>
-                </span>
+                <span class="category-card-arrow" aria-hidden="true">&rarr;</span>
             </a>
         <?php endforeach; ?>
     </div>
