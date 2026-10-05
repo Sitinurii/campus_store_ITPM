@@ -26,7 +26,53 @@
 
 <section class="section">
 
-    <h1>Semua Produk</h1>
+    <?php
+    $produk = [
+        [
+            "id" => 1,
+            "nama" => "Jaket Almamater",
+            "harga" => 250000,
+            "kategori" => "Jaket"
+        ],
+        [
+            "id" => 2,
+            "nama" => "Kaos Kampus",
+            "harga" => 85000,
+            "kategori" => "Kaos"
+        ],
+        [
+            "id" => 3,
+            "nama" => "Tote Bag",
+            "harga" => 65000,
+            "kategori" => "Tas"
+        ],
+        [
+            "id" => 4,
+            "nama" => "Topi Kampus",
+            "harga" => 50000,
+            "kategori" => "Topi"
+        ]
+    ];
+
+    $kategori = trim($_GET['kategori'] ?? '');
+    $kata_kunci = trim($_GET['q'] ?? '');
+    $produk_ditemukan = array_filter($produk, function ($item) use ($kategori, $kata_kunci) {
+        $sesuai_kategori = $kategori === '' || strcasecmp($item['kategori'], $kategori) === 0;
+        $sesuai_pencarian = $kata_kunci === '' || stripos($item['nama'], $kata_kunci) !== false;
+
+        return $sesuai_kategori && $sesuai_pencarian;
+    });
+    ?>
+
+    <h1>
+        <?php
+        echo $kata_kunci !== ''
+            ? 'Hasil pencarian: ' . htmlspecialchars($kata_kunci, ENT_QUOTES, 'UTF-8')
+            : ($kategori !== ''
+                ? 'Kategori: ' . htmlspecialchars($kategori, ENT_QUOTES, 'UTF-8')
+                : 'Semua Produk');
+        ?>
+    </h1>
 
     <div class="filter">
         <a href="produk.php">Semua</a>
@@ -39,35 +85,19 @@
 
     <div class="product-list">
 
-        <div class="product-card">
-            <div class="product-image">Foto Produk</div>
-            <h3>Jaket Almamater</h3>
-            <p>Rp250.000</p>
-            <a href="detail_produk.php?id=1">Lihat Produk</a>
-        </div>
-
-        <div class="product-card">
-            <div class="product-image">Foto Produk</div>
-            <h3>Kaos Kampus</h3>
-            <p>Rp85.000</p>
-            <a href="detail_produk.php?id=2">Lihat Produk</a>
-        </div>
-
-        <div class="product-card">
-            <div class="product-image">Foto Produk</div>
-            <h3>Tote Bag</h3>
-            <p>Rp65.000</p>
-            <a href="detail_produk.php?id=3">Lihat Produk</a>
-        </div>
-
-        <div class="product-card">
-            <div class="product-image">Foto Produk</div>
-            <h3>Topi Kampus</h3>
-            <p>Rp50.000</p>
-            <a href="detail_produk.php?id=4">Lihat Produk</a>
-        </div>
+        <?php foreach ($produk_ditemukan as $item): ?>
+            <div class="product-card">
+                <div class="product-image">Foto Produk</div>
+                <h3><?php echo htmlspecialchars($item['nama'], ENT_QUOTES, 'UTF-8'); ?></h3>
+                <p>Rp<?php echo number_format($item['harga'], 0, ',', '.'); ?></p>
+                <a href="detail_produk.php?id=<?php echo $item['id']; ?>">Lihat Produk</a>
+            </div>
+        <?php endforeach; ?>
 
     </div>
+    <?php if (count($produk_ditemukan) === 0): ?>
+        <p>Produk tidak ditemukan. Coba kata kunci atau kategori lain.</p>
+    <?php endif; ?>
 
 </section>
 

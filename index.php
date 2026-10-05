@@ -14,14 +14,17 @@
     <nav>
         <a href="index.php">BERANDA</a>
         <a href="produk.php">PRODUK</a>
-        <a href="#">KATEGORI</a>
-        <a href="#">TENTANG</a>
+        <a href="#kategori">KATEGORI</a>
+        <a href="#tentang">TENTANG</a>
     </nav>
 
     <div class="header-right">
-        <input type="text" placeholder="Cari produk...">
+        <form class="header-search" action="produk.php" method="get" role="search">
+            <input type="search" name="q" placeholder="Cari produk..." aria-label="Cari produk">
+            <button type="submit">Cari</button>
+        </form>
         <a href="keranjang.php">🛒</a>
-        <a href="#">👤</a>
+        <a href="login.php" aria-label="Masuk">👤</a>
     </div>
 </header>
 
@@ -35,7 +38,7 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section" id="kategori">
     <h2>KATEGORI</h2>
 
     <div class="category-list">
@@ -84,7 +87,7 @@
     </div>
 </section>
 
-<section class="features">
+<section class="features" id="tentang">
     <div>
         <h3>Official & Original</h3>
         <p>Produk resmi dan original dari kampus.</p>

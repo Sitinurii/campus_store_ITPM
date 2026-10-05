@@ -44,6 +44,16 @@ header a {
     padding: 10px;
 }
 
+.header-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.header-search button {
+    padding: 10px 12px;
+}
+
 .hero {
     padding: 100px 60px;
     background: #f3f6fa;
