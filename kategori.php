@@ -37,43 +37,22 @@ if ($kategori_result) {
     </div>
 </header>
 
-<main class="section category-page">
-    <div class="category-heading">
-        <p class="category-eyebrow">Jelajahi Campus Store</p>
-        <h1>Kategori Produk</h1>
-        <p>Pilih kategori untuk menemukan merchandise kampus favoritmu.</p>
-    </div>
+<main class="section">
+    <h2>KATEGORI</h2>
+    <p>Pilih kategori untuk melihat merchandise yang tersedia.</p>
 
-    <div class="category-grid">
+    <div class="category-list">
         <?php if (!empty($kategori_list)): ?>
             <?php foreach ($kategori_list as $kategori): ?>
-                <a class="category-card" href="produk.php?kategori=<?php echo urlencode($kategori['nama_kategori']); ?>">
-                    <span class="category-card-label">Kategori</span>
-                    <h2><?php echo htmlspecialchars($kategori['nama_kategori'], ENT_QUOTES, 'UTF-8'); ?></h2>
-                    <span class="category-card-action">Lihat produk <span aria-hidden="true">&rarr;</span></span>
+                <a href="produk.php?kategori=<?php echo urlencode($kategori['nama_kategori']); ?>">
+                    <?php echo htmlspecialchars($kategori['nama_kategori'], ENT_QUOTES, 'UTF-8'); ?>
                 </a>
             <?php endforeach; ?>
         <?php else: ?>
-            <a class="category-card" href="produk.php?kategori=Jaket">
-                <span class="category-card-label">Kategori</span>
-                <h2>Jaket</h2>
-                <span class="category-card-action">Lihat produk <span aria-hidden="true">&rarr;</span></span>
-            </a>
-            <a class="category-card" href="produk.php?kategori=Kaos">
-                <span class="category-card-label">Kategori</span>
-                <h2>Kaos</h2>
-                <span class="category-card-action">Lihat produk <span aria-hidden="true">&rarr;</span></span>
-            </a>
-            <a class="category-card" href="produk.php?kategori=Tas">
-                <span class="category-card-label">Kategori</span>
-                <h2>Tas</h2>
-                <span class="category-card-action">Lihat produk <span aria-hidden="true">&rarr;</span></span>
-            </a>
-            <a class="category-card" href="produk.php?kategori=Topi">
-                <span class="category-card-label">Kategori</span>
-                <h2>Topi</h2>
-                <span class="category-card-action">Lihat produk <span aria-hidden="true">&rarr;</span></span>
-            </a>
+            <a href="produk.php?kategori=Jaket">Jaket</a>
+            <a href="produk.php?kategori=Kaos">Kaos</a>
+            <a href="produk.php?kategori=Tas">Tas</a>
+            <a href="produk.php?kategori=Topi">Topi</a>
         <?php endif; ?>
     </div>
 </main>
