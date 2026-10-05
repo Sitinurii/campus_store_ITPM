@@ -14,7 +14,7 @@
     <nav>
         <a href="index.php">BERANDA</a>
         <a href="produk.php">PRODUK</a>
-        <a href="#kategori">KATEGORI</a>
+        <a href="kategori.php">KATEGORI</a>
         <a href="#tentang">TENTANG</a>
     </nav>
 
@@ -46,8 +46,6 @@
         <a href="produk.php?kategori=Kaos">Kaos</a>
         <a href="produk.php?kategori=Tas">Tas</a>
         <a href="produk.php?kategori=Topi">Topi</a>
-        <a href="produk.php?kategori=Atribut">Atribut</a>
-        <a href="produk.php?kategori=Hoodie">Hoodie</a>
     </div>
 </section>
 
