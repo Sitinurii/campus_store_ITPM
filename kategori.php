@@ -32,6 +32,10 @@ if ($kategori_result) {
     </nav>
 
     <div class="header-right">
+        <form class="header-search" action="produk.php" method="get" role="search">
+            <input type="search" name="q" placeholder="Cari produk..." aria-label="Cari produk">
+            <button type="submit">Cari</button>
+        </form>
         <a href="keranjang.php" aria-label="Keranjang">🛒</a>
         <a href="login.php" aria-label="Masuk">👤</a>
     </div>
